@@ -1,12 +1,14 @@
 /* eslint-disable react/prop-types */
 import { motion } from "framer-motion";
+import { useState } from "react";
 import displayImage from "../assets/home-img.png";
 import preIcon from "../assets/pre-icon.png";
 import { Button } from "@material-tailwind/react";
-import { useNavigate } from 'react-router-dom';
+import ProposalDialog from "./ProposalDialog";
 
 const IntroScreen = () => {
-  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(!open);
 
   return (
     <motion.div
@@ -38,11 +40,13 @@ const IntroScreen = () => {
           />
           <Button
             fullWidth
-            onClick={() => navigate('/proposal')}
+            onClick={handleOpen}
             className="rounded-full bg-[#FD5A90] text-white hover:shadow-lg hover:shadow-[#FFE8A3] transition-all duration-300"
           >
             Get My Free Proposal
           </Button>
+          {/* Render the ProposalDialog component */}
+          <ProposalDialog open={open} handleOpen={handleOpen} />
         </div>
       </div>
     </motion.div>
@@ -60,4 +64,3 @@ const InfoBox = ({ title, description }) => (
 );
 
 export default IntroScreen;
-
