@@ -11,22 +11,22 @@ const MainContent = ({
   selectedVenues,
   setSelectedVenues,
   step,
-  setStep,
+  setStep, // Get setStep from CardScreen
 }) => {
 
   const navigate = useNavigate();
 
   const handleCards = () => {
     if (step > 1) {
-      setStep(step - 1);
+      setStep(step - 1); // Decrease step
     } else {
-      navigate("/");
+      navigate("/"); // If it's step 1, navigate to home
     }
   };
 
   return (
     <motion.div
-      className="w-full md:w-3/5 h-full bg-transparent overflow-auto"
+      className="w-full md:w-3/5 h-full bg-transparent overflow-auto no-scrollbar"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
@@ -58,7 +58,7 @@ const MainContent = ({
           <Progress
             value={step === 1 ? 25 : 50}
             color="amber"
-            className="bg-[#FEDE7C]"s
+            className="bg-[#FEDE7C]"
             size="sm"
           />
         </div>

@@ -1,10 +1,12 @@
 /* eslint-disable react/prop-types */
+import { useEffect, useRef } from "react";
 import venue1 from "../assets/venue1.png";
 import venue2 from "../assets/venue2.png";
 import venue3 from "../assets/venue3.png";
 import venue4 from "../assets/venue4.png";
 import venue5 from "../assets/venue5.png";
 import venue6 from "../assets/venue6.png";
+
 
 const venueOptions = [
   { id: "5-star", title: "5 Star Hotels", description: "High-end amenities and exceptional service", image: venue1 },
@@ -16,6 +18,8 @@ const venueOptions = [
 ];
 
 const Step2 = ({ selectedVenues, setSelectedVenues }) => {
+  const buttonRef = useRef(null);
+
   const handleVenueSelect = (venueId) => {
     setSelectedVenues((prevSelected) => {
       if (prevSelected.includes(venueId)) {
@@ -25,13 +29,19 @@ const Step2 = ({ selectedVenues, setSelectedVenues }) => {
     });
   };
 
-  return (
-    <div className="w-full max-w-2xl text-center">
-      <div className="mb-8 text-gray-600">Step 2/2</div>
-      <h1 className="text-3xl font-bold mb-4">What type of venues would you like?</h1>
-      <p className="text-gray-600 mb-4">Select all options that you like.</p>
+  useEffect(() => {
+    if (selectedVenues.length > 0 && buttonRef.current) {
+      buttonRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [selectedVenues]);
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 px-4 pb-8">
+  return (
+    <div className="w-full max-w-2xl px-4 text-center">
+      <div className="mb-4 md:mb-8 text-gray-600 text-sm md:text-base">Step 3/6</div>
+      <h1 className="text-2xl md:text-3xl font-bold mb-2 md:mb-4">What type of venues would you like?</h1>
+      <p className="text-sm md:text-base text-gray-600 mb-6">Select all options that you like.</p>
+
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4 pb-4 md:pb-8">
         {venueOptions.map((venue) => {
           const isSelected = selectedVenues.includes(venue.id);
           return (
@@ -39,23 +49,23 @@ const Step2 = ({ selectedVenues, setSelectedVenues }) => {
               key={venue.id}
               onClick={() => handleVenueSelect(venue.id)}
               className={`
-                relative p-4 rounded-xl border transition-all transform hover:scale-95 hover:bg-[#FEDE7C]
+                relative p-2 md:p-4 rounded-xl border transition-all transform hover:scale-95 hover:bg-[#FEDE7C]
                 ${isSelected 
-                  ? 'bg-[#FEDE7C] border-[#FEDE7C] shadow-md' 
+                  ? 'bg-white border-[#FD5A90] shadow-2xl' 
                   : 'bg-white border-gray-300 hover:border-[#FEDE7C]'
                 }
               `}
             >
-              <div className="flex flex-col items-center space-y-2">
-                <div className="w-20 h-20 rounded-lg overflow-hidden mb-2">
+              <div className="flex flex-col items-center space-y-1 md:space-y-2">
+                <div className="w-12 h-12 md:w-16 md:h-16 rounded-lg overflow-hidden mb-1 md:mb-2">
                   <img 
                     src={venue.image} 
                     alt={venue.title} 
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <h3 className="font-semibold text-black text-sm">{venue.title}</h3>
-                <p className="text-xs text-gray-600">{venue.description}</p>
+                <h3 className="font-semibold text-black text-xs md:text-sm">{venue.title}</h3>
+                <p className="text-[10px] md:text-xs text-gray-600 line-clamp-2">{venue.description}</p>
               </div>
             </button>
           );
@@ -64,7 +74,8 @@ const Step2 = ({ selectedVenues, setSelectedVenues }) => {
 
       {selectedVenues.length >= 1 && (
         <button
-          className="w-[50%] mb-8 rounded-full bg-[#FD5A90] text-white py-3 hover:shadow-lg hover:shadow-[#FFE8A3] transition-all duration-300"
+          ref={buttonRef}
+          className="w-full md:w-[50%] mb-4 md:mb-8 rounded-full bg-[#FD5A90] text-white py-2 md:py-3 text-sm md:text-base hover:shadow-lg hover:shadow-[#FFE8A3] transition-all duration-300"
         >
           Next
         </button>
