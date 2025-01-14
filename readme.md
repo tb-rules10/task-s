@@ -9,7 +9,7 @@
 
 - Developed using **React.js** for a dynamic, single-page application experience.
 - Styled with **TailwindCSS** to ensure a clean, responsive, and mobile-friendly UI.
-- Smooth animations powered by **Framer Motion** to enhance the user experience.
+- Smooth animations powered by **Framer Motion** to enhance the user experience. 
 
 ---
 
