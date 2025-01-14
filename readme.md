@@ -48,3 +48,20 @@ cd server
 npm install
 npm start
 ```
+
+## **API Endpoints**
+
+### 1. **/health**
+
+- **Method:** `GET`
+- **Description:** Returns the health status of the server (used to check if the server is running).
+
+### 2. **/api/user**
+
+- **Method:** `POST`
+- **Description:** Add or update user's personal details.
+- 
+### 3. **/api/details**
+
+- **Method:** `POST`
+- **Description:** Add or update user's wedding preferences.
