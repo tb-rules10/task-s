@@ -93,7 +93,7 @@ const Step2 = ({ selectedVenues, setSelectedVenues, setStep, guestCount }) => {
               `}
             >
               <div className="flex flex-col items-center space-y-1 md:space-y-2">
-                <div className="w-12 h-12 md:w-16 md:h-16 rounded-lg overflow-hidden mb-1 md:mb-2">
+                <div className="w-12 h-12 md:w-auto md:h-16 rounded-lg overflow-hidden mb-1 md:mb-2">
                   <img 
                     src={venue.image} 
                     alt={venue.title} 
