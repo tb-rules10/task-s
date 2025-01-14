@@ -3,6 +3,7 @@ import { Progress, IconButton } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
+import { useEffect } from "react";
 
 const MainContent = ({
   selectedGuests,
@@ -22,6 +23,11 @@ const MainContent = ({
       navigate("/");
     }
   };
+
+  useEffect(() => {
+    if(step == 0 || step == 3)
+        navigate("/");
+  }, [navigate, step])
 
   return (
     <motion.div
@@ -76,6 +82,7 @@ const MainContent = ({
               selectedVenues={selectedVenues}
               setSelectedVenues={setSelectedVenues}
               setStep={setStep}
+              guestCount={selectedGuests}
             />
           )}
         </div>

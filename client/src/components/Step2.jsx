@@ -7,7 +7,6 @@ import venue4 from "../assets/venue4.png";
 import venue5 from "../assets/venue5.png";
 import venue6 from "../assets/venue6.png";
 
-
 const venueOptions = [
   { id: "5-star", title: "5 Star Hotels", description: "High-end amenities and exceptional service", image: venue1 },
   { id: "resorts", title: "Resorts", description: "Picturesque settings with luxury guest accommodation", image: venue2 },
@@ -17,7 +16,7 @@ const venueOptions = [
   { id: "kalyan", title: "Kalyan Mantapas", description: "Indoor halls for traditional weddings", image: venue6 }
 ];
 
-const Step2 = ({ selectedVenues, setSelectedVenues }) => {
+const Step2 = ({ selectedVenues, setSelectedVenues, setStep, guestCount }) => {
   const buttonRef = useRef(null);
 
   const handleVenueSelect = (venueId) => {
@@ -34,6 +33,44 @@ const Step2 = ({ selectedVenues, setSelectedVenues }) => {
       buttonRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [selectedVenues]);
+
+  const handleNextClick = async () => {
+    const userData = JSON.parse(localStorage.getItem("VITE_APP_USER"));
+
+    if (!userData || !userData.user || !userData.user._id) {
+      console.error("User ID not found in localStorage.");
+      return;
+    }
+
+    const userId = userData.user._id;
+    const payload = {
+      userId,
+      guestCount,
+      venues: selectedVenues
+    };
+    console.log(payload)
+
+    try {
+      const response = await fetch(`${import.meta.env.VITE_BASE_URL}/details`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log("User details updated successfully:", data);
+        setStep((prevStep) => prevStep + 1);
+      } else {
+        console.error("Error updating user details:", data.message);
+      }
+    } catch (error) {
+      console.error("Error sending request:", error);
+    }
+  };
 
   return (
     <div className="w-full max-w-2xl px-4 text-center">
@@ -52,8 +89,7 @@ const Step2 = ({ selectedVenues, setSelectedVenues }) => {
                 relative p-2 md:p-4 rounded-xl border transition-all transform hover:scale-95 hover:bg-[#FEDE7C]
                 ${isSelected 
                   ? 'bg-white border-[#FD5A90] shadow-2xl' 
-                  : 'bg-white border-gray-300 hover:border-[#FEDE7C]'
-                }
+                  : 'bg-white border-gray-300 hover:border-[#FEDE7C]'}
               `}
             >
               <div className="flex flex-col items-center space-y-1 md:space-y-2">
@@ -75,6 +111,7 @@ const Step2 = ({ selectedVenues, setSelectedVenues }) => {
       {selectedVenues.length >= 1 && (
         <button
           ref={buttonRef}
+          onClick={handleNextClick}
           className="w-full md:w-[50%] mb-4 md:mb-8 rounded-full bg-[#FD5A90] text-white py-2 md:py-3 text-sm md:text-base hover:shadow-lg hover:shadow-[#FFE8A3] transition-all duration-300"
         >
           Next

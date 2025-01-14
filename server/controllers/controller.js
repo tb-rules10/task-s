@@ -32,7 +32,7 @@ const addDetails = async (req, res) => {
   try {
     const { userId, guestCount, venues } = req.body;
 
-    if (typeof guestCount !== "number" || guestCount < 1)
+    if (typeof guestCount !== "string" || guestCount < 1)
       return res.status(400).json({ message: "Invalid guest count" });
 
     if (!Array.isArray(venues) || venues.length > 10)
@@ -45,6 +45,8 @@ const addDetails = async (req, res) => {
 
     user.guestCount = guestCount;
     user.venues = venues;
+
+    console.log("--> Details Updated : ", user.name);
 
     await user.save();
     res

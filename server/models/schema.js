@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
     match: [/^\d{10,15}$/, 'Phone number should be between 10 to 15 digits'],
   },
   guestCount: {
-    type: Number,
+    type: String,
     default: null, 
     min: 1,
   },
