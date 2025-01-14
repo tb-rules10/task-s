@@ -1,8 +1,6 @@
-/* eslint-disable react/prop-types */
 import { motion } from 'framer-motion';
-import { SearchIcon, HeartIcon, StarIcon } from 'lucide-react'; // Importing additional icons
+import { SearchIcon, HeartIcon, StarIcon } from 'lucide-react';
 
-// Configuration object for step data
 const stepConfig = {
   0: {
     icon: <SearchIcon className="text-black w-12 h-12" />,
@@ -19,8 +17,7 @@ const stepConfig = {
 };
 
 export default function LoaderScreen({ step }) {
-  // Default to step 1 if no step is provided
-  const { icon, text } = stepConfig[step] || stepConfig[1]; // Default to step 1 if invalid step
+  const { icon, text } = stepConfig[step] || stepConfig[1];
 
   return (
     <motion.div
@@ -36,12 +33,11 @@ export default function LoaderScreen({ step }) {
         transition={{ duration: 0.5 }}
         className="relative flex items-center justify-center"
       >
-        {/* Wavy Circles */}
         <motion.div
           animate={{
             scale: [1, 1.2, 1],
             opacity: [0.7, 0.3, 0.7],
-            y: [0, -10, 0], // Creates wavy effect
+            y: [0, -10, 0],
           }}
           transition={{
             duration: 2,
@@ -54,7 +50,7 @@ export default function LoaderScreen({ step }) {
           animate={{
             scale: [1, 1.1, 1],
             opacity: [0.7, 0.5, 0.7],
-            y: [0, -10, 0], // Wavy effect
+            y: [0, -10, 0],
           }}
           transition={{
             duration: 2,
@@ -68,7 +64,7 @@ export default function LoaderScreen({ step }) {
           animate={{
             scale: [1, 1.05, 1],
             opacity: [1, 0.8, 1],
-            y: [0, -10, 0], // Wavy effect
+            y: [0, -10, 0],
           }}
           transition={{
             duration: 2,
@@ -79,9 +75,7 @@ export default function LoaderScreen({ step }) {
           className="absolute w-80 h-80 bg-white rounded-full"
         />
 
-        {/* Circle with Icon and Text inside */}
         <div className="absolute w-80 h-80 bg-transparent text-black rounded-full flex flex-col items-center justify-center text-center p-8">
-          {/* Moving Icon */}
           <motion.div
             animate={{ y: [0, -5, 0] }}
             transition={{
@@ -94,7 +88,6 @@ export default function LoaderScreen({ step }) {
             {icon}
           </motion.div>
 
-          {/* Text Inside Circle */}
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

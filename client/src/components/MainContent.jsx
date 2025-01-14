@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { motion } from "framer-motion";
 import { Progress, IconButton } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
@@ -11,16 +10,16 @@ const MainContent = ({
   selectedVenues,
   setSelectedVenues,
   step,
-  setStep, // Get setStep from CardScreen
+  setStep,
 }) => {
 
   const navigate = useNavigate();
 
   const handleCards = () => {
     if (step > 1) {
-      setStep(step - 1); // Decrease step
+      setStep(step - 1);
     } else {
-      navigate("/"); // If it's step 1, navigate to home
+      navigate("/");
     }
   };
 
